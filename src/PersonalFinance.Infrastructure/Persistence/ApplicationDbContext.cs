@@ -65,7 +65,8 @@ public class ApplicationDbContext : DbContext
 
             entity.HasOne(x => x.Category)
                 .WithMany(x => x.Expenses)
-                .HasForeignKey(x => x.CategoryId);
+                .HasForeignKey(x => x.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<Budget>(entity =>

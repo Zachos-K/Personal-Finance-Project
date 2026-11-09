@@ -10,6 +10,7 @@ using PersonalFinance.Domain.Entities;
 using PersonalFinance.Infrastructure.Authentication;
 using PersonalFinance.Infrastructure.Persistence;
 using PersonalFinance.Infrastructure.Categories;
+using PersonalFinance.Infrastructure.Expenses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,6 +84,10 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     ICategoryService,
     CategoryService>();
+
+builder.Services.AddScoped<
+    IExpenseService,
+    ExpenseService>();
 
 builder.Services.AddSingleton<
     IJwtTokenGenerator,

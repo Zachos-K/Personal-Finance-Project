@@ -142,17 +142,27 @@ public class CategoriesController : ControllerBase
             return Unauthorized();
         }
 
-        var deleted =
-            await _categoryService.DeleteAsync(
-                userId,
-                id);
-
-        if (!deleted)
+        try
         {
-            return NotFound();
-        }
+            var deleted =
+                await _categoryService.DeleteAsync(
+                    userId,
+                    id);
 
-        return NoContent();
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new
+            {
+                message = ex.Message
+            });
+        }
     }
 
     private bool TryGetCurrentUserId(

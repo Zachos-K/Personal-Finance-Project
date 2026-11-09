@@ -150,6 +150,17 @@ public class CategoryService : ICategoryService
             return false;
         }
 
+        var hasExpenses =
+            await _dbContext.Expenses.AnyAsync(expense =>
+                expense.UserId == userId &&
+                expense.CategoryId == categoryId);
+
+        if (hasExpenses)
+        {
+            throw new InvalidOperationException(
+                "Category cannot be deleted because it contains expenses.");
+        }
+
         _dbContext.Categories.Remove(category);
 
         await _dbContext.SaveChangesAsync();

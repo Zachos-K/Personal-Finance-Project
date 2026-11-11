@@ -11,6 +11,7 @@ using PersonalFinance.Infrastructure.Authentication;
 using PersonalFinance.Infrastructure.Persistence;
 using PersonalFinance.Infrastructure.Categories;
 using PersonalFinance.Infrastructure.Expenses;
+using PersonalFinance.Infrastructure.Budgets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,6 +89,10 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     IExpenseService,
     ExpenseService>();
+
+builder.Services.AddScoped<
+    IBudgetService,
+    BudgetService>();
 
 builder.Services.AddSingleton<
     IJwtTokenGenerator,
